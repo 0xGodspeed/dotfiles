@@ -14,7 +14,19 @@ myTerm = "alacritty"                             # My terminal of choice
 myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file location
 
 keys = [
-         ### The essentials
+          Key(
+              [], "XF86AudioRaiseVolume",
+              lazy.spawn("amixer -c 1 -q set Master 1dB+")
+          ),
+          Key(
+              [], "XF86AudioRaiseVolume",
+              lazy.spawn("amixer -c 1 -q set Master 1dB-")
+          ),
+          Key(
+              [], "XF86AudioMute",
+              lazy.spawn("amixer -D pulse set Master toggle")
+          ),                    
+               ### The essentials
          Key([mod], "Return",
              lazy.spawn(myTerm),
              desc='Launches My Terminal'
@@ -39,19 +51,6 @@ keys = [
          Key([mod, "shift"], "q",
              lazy.shutdown(),
              desc='Shutdown Qtile'
-             ),
-         Key(["control", "shift"], "e",
-             lazy.spawn("emacsclient -c -a emacs"),
-             desc='Doom Emacs'
-             ),
-         ### Treetab controls
-         Key([mod, "control"], "k",
-             lazy.layout.section_up(),
-             desc='Move up a section in treetab'
-             ),
-         Key([mod, "control"], "j",
-             lazy.layout.section_down(),
-             desc='Move down a section in treetab'
              ),
          ### Window controls
          Key([mod], "k",
@@ -110,70 +109,18 @@ keys = [
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
              ),
-         ### Dmenu scripts launched with ALT + CTRL + KEY
-         Key(["mod1", "control"], "e",
-             lazy.spawn("./.dmenu/dmenu-edit-configs.sh"),
-             desc='Dmenu script for editing config files'
+         ### My applications launched with SUPER + ALT + KEY1
+         Key([mod], "f",
+             lazy.spawn("firefox"),
+             desc='firefox'
              ),
-         Key(["mod1", "control"], "m",
-             lazy.spawn("./.dmenu/dmenu-sysmon.sh"),
-             desc='Dmenu system monitor script'
-             ),
-         Key(["mod1", "control"], "p",
-             lazy.spawn("passmenu"),
-             desc='Passmenu'
-             ),
-         Key(["mod1", "control"], "r",
-             desc='Dmenu reddio script'
-             ),
-         Key(["mod1", "control"], "s",
-             lazy.spawn("./.dmenu/dmenu-surfraw.sh"),
-             desc='Dmenu surfraw script'
-             ),
-         Key(["mod1", "control"], "t",
-             lazy.spawn("./.dmenu/dmenu-trading.sh"),
-             desc='Dmenu trading programs script'
-             ),
-         Key(["mod1", "control"], "i",
-             lazy.spawn("./.dmenu/dmenu-scrot.sh"),
-             desc='Dmenu scrot script'
-             ),
-         ### My applications launched with SUPER + ALT + KEY
-         Key([mod, "mod1"], "b",
-             lazy.spawn("tabbed -r 2 surf -pe x '.surf/html/homepage.html'"),
-             desc='lynx browser'
-             ),
-         Key([mod, "mod1"], "l",
-             lazy.spawn(myTerm+" -e lynx gopher://distro.tube"),
-             desc='lynx browser'
-             ),
-         Key([mod, "mod1"], "n",
-             lazy.spawn(myTerm+" -e newsboat"),
-             desc='newsboat'
-             ),
-         Key([mod, "mod1"], "r",
-             lazy.spawn(myTerm+" -e rtv"),
-             desc='reddit terminal viewer'
-             ),
-         Key([mod, "mod1"], "e",
-             lazy.spawn(myTerm+" -e neomutt"),
-             desc='neomutt'
-             ),
-         Key([mod, "mod1"], "m",
-             lazy.spawn(myTerm+" -e sh ./scripts/toot.sh"),
-             desc='toot mastodon cli'
-             ),
-         Key([mod, "mod1"], "t",
-             lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh"),
-             desc='tig'
-             ),
-         Key([mod, "mod1"], "f",
-             lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun"),
-             desc='vifm'
-             ),
-         Key([mod, "mod1"], "j",
-             lazy.spawn(myTerm+" -e joplin"),
-             desc='joplin'
+         Key([mod], "s",
+             lazy.spawn("subl"),
+             desc='sublime text'
+             ),         
+         Key([mod], "d",
+             lazy.spawn("discord"),
+             desc='discord'
              ),
          Key([mod, "mod1"], "c",
              lazy.spawn(myTerm+" -e cmus"),
@@ -222,11 +169,10 @@ layouts = [
     #layout.Columns(**layout_theme),
     #layout.RatioTile(**layout_theme),
     #layout.VerticalTile(**layout_theme),
-    # layout.Matrix(**layout_theme),
-    layout.MonadTall(**layout_theme),
+    layout.Matrix(**layout_theme),
     layout.Zoomy(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
+    layout.MonadTall(**layout_theme),
     layout.Stack(num_stacks=2),
     # layout.TreeTab(
     #      font = "Ubuntu",
