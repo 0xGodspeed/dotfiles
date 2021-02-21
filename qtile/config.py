@@ -19,7 +19,7 @@ keys = [
               lazy.spawn("amixer -c 1 -q set Master 1dB+")
           ),
           Key(
-              [], "XF86AudioRaiseVolume",
+              [], "XF86AudioLowerVolume",
               lazy.spawn("amixer -c 1 -q set Master 1dB-")
           ),
           Key(
@@ -117,7 +117,11 @@ keys = [
          Key([mod], "s",
              lazy.spawn("subl"),
              desc='sublime text'
-             ),         
+             ),
+         Key([mod], "e",
+             lazy.spawn("thunar"),
+             desc='thunar'
+             ),                      
          Key([mod], "d",
              lazy.spawn("discord"),
              desc='discord'
@@ -142,12 +146,12 @@ keys = [
 
 group_names = [("WWW", {'layout': 'monadtall'}),
                ("DEV", {'layout': 'monadtall'}),
-               ("CHAT", {'layout': 'monadtall'}),
+               ("CHAT", {'layout': 'zoomy'}),
                ("VID", {'layout': 'monadtall'}),
+               ("MUS", {'layout': 'monadtall'}),
                ("SYS", {'layout': 'monadtall'}),
                ("DOC", {'layout': 'monadtall'}),
                ("VBOX", {'layout': 'monadtall'}),
-               ("MUS", {'layout': 'monadtall'}),
                ("GFX", {'layout': 'floating'})]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
@@ -222,6 +226,8 @@ def init_widgets_list():
                        filename = "~/.config/qtile/icons/python.png",
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
                        ),
+
+              
               widget.GroupBox(
                        font = "Ubuntu Bold",
                        fontsize = 9,
@@ -373,7 +379,7 @@ def init_widgets_list():
               widget.Clock(
                        foreground = colors[2],
                        background = colors[5],
-                       format = "%A, %B %d  [ %H:%M ]"
+                       format = "%A, %B %d [ %I:%M %p]"
                        ),
               widget.Sep(
                        linewidth = 0,
@@ -385,6 +391,10 @@ def init_widgets_list():
                        background = colors[0],
                        padding = 5
                        ),
+              widget.Image(
+                       filename = "~/.config/qtile/icons/shutdown.png",
+                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('shutdown')}
+                       )              
               ]
     return widgets_list
 
