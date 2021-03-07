@@ -7,6 +7,7 @@ from libqtile.config import KeyChord, Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
+from libqtile.window import Window
 from typing import List  # noqa: F401
 
 mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
@@ -119,8 +120,8 @@ keys = [
              desc='sublime text'
              ),
          Key([mod], "e",
-             lazy.spawn("thunar"),
-             desc='thunar'
+             lazy.spawn("pcmanfm"),
+             desc='pcmanfm'
              ),                      
          Key([mod], "d",
              lazy.spawn("discord"),
@@ -141,10 +142,10 @@ keys = [
          Key([mod, "mod1"], "a",
              lazy.spawn(myTerm+" -e ncpamixer"),
              desc='ncpamixer'
-             ),
+             )    
 ]
 
-group_names = [("WWW", {'layout': 'monadtall'}),
+group_names = [("WWW", {'layout': 'max'}),
                ("DEV", {'layout': 'monadtall'}),
                ("CHAT", {'layout': 'zoomy'}),
                ("VID", {'layout': 'monadtall'}),
@@ -173,11 +174,11 @@ layouts = [
     #layout.Columns(**layout_theme),
     #layout.RatioTile(**layout_theme),
     #layout.VerticalTile(**layout_theme),
-    layout.Matrix(**layout_theme),
+    # layout.Matrix(**layout_theme),
     layout.Zoomy(**layout_theme),
     layout.Max(**layout_theme),
-    layout.MonadTall(**layout_theme),
-    layout.Stack(num_stacks=2),
+    layout.MonadTall(**layout_theme)
+    # layout.Stack(num_stacks=2),
     # layout.TreeTab(
     #      font = "Ubuntu",
     #      fontsize = 10,
@@ -192,7 +193,7 @@ layouts = [
     #      section_top = 10,
     #      panel_width = 320
     #      ),
-    layout.Floating(**layout_theme)
+    # layout.Floating(**layout_theme)
 ]
 
 colors = [["#282c34", "#282c34"], # panel background
@@ -257,7 +258,7 @@ def init_widgets_list():
               #          ),
               widget.Sep(
                        linewidth = 0,
-                       padding = 40,
+                       padding = 20,
                        foreground = colors[2],
                        background = colors[0]
                        ),
@@ -271,8 +272,8 @@ def init_widgets_list():
                        background = colors[0],
                        foreground = colors[4],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16
+                       fontsize = 15,
+                       width = 10
                        ),
               widget.TextBox(
                        text = " ⟳",
@@ -299,8 +300,8 @@ def init_widgets_list():
                        background = colors[4],
                        foreground = colors[5],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16
+                       fontsize = 15,
+                       width = 10
                        ),
               widget.TextBox(
                        text = "🖬",
@@ -320,8 +321,8 @@ def init_widgets_list():
                        background = colors[5],
                        foreground = colors[4],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16                   
+                       fontsize = 15,
+                       width = 10                
                        ),
               widget.Net(
                        format = '{down} ↓↑ {up}',
@@ -334,8 +335,8 @@ def init_widgets_list():
                        background = colors[4],
                        foreground = colors[5],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16
+                       fontsize = 15,
+                       width = 10
                        ),
               widget.TextBox(
                       text = " Vol:",
@@ -353,8 +354,8 @@ def init_widgets_list():
                        background = colors[5],
                        foreground = colors[4],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16
+                       fontsize = 15,
+                       width = 10
                        ),
               widget.CurrentLayoutIcon(
                        custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
@@ -373,19 +374,13 @@ def init_widgets_list():
                        background = colors[4],
                        foreground = colors[5],
                        padding = 0,
-                       fontsize = 50,
-                       width = 16
+                       fontsize = 15,
+                       width = 10
                        ),
               widget.Clock(
                        foreground = colors[2],
                        background = colors[5],
                        format = "%A, %B %d [ %I:%M %p]"
-                       ),
-              widget.Sep(
-                       linewidth = 0,
-                       padding = 10,
-                       foreground = colors[0],
-                       background = colors[5]
                        ),
               widget.Systray(
                        background = colors[0],
@@ -393,7 +388,7 @@ def init_widgets_list():
                        ),
               widget.Image(
                        filename = "~/.config/qtile/icons/shutdown.png",
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('shutdown')}
+                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('poweroff')}
                        )              
               ]
     return widgets_list

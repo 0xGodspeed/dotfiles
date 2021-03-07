@@ -1,2 +1,3 @@
 #! /bin/bash
-nitrogen --restore &
+~/paperview/paperview ~/walls/1 5 &
+# nitrogen --restore &
