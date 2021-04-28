@@ -24,7 +24,7 @@
     idle_threshold = 120
 
     # Font and typography settings
-    font = Fira Code 11
+    font = MesloLGS NF 13
     alignment = center
     word_wrap = yes
 
@@ -39,7 +39,7 @@
 [shortcuts]
     close = ctrl+space
     close_all = ctrl+shift+space
-    history = ctrl+grave
+    # history = ctrl+grave
 
 # Set the background and foreground (text) color for all notifications
 [urgency_low]
