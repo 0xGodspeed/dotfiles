@@ -34,52 +34,30 @@ keys = [
     Key([mod], "d", lazy.spawn("discord"), desc='discord'),
     Key([mod], "e", lazy.spawn("thunar"), desc='thunar'),
     Key([mod], "s", lazy.spawn("subl"), desc='sublime text 3'),
+    Key([mod], "v", lazy.spawn("vscodium"), desc='vscodium'),
+
+    Key([], "KP_Home", lazy.spawn("playerctl play-pause")),
+    Key([], "KP_Page_Up", lazy.spawn("playerctl next")),
+    Key([], "KP_Page_Down", lazy.spawn("playerctl previous")),
+
+    # Key(["mod1"], "Tab", lazy.layout.down())
 
 ]
-colors = [
-    ["#2e3440", "#2e3440"],  # background
-    ["#d8dee9", "#d8dee9"],  # foreground
-    ["#3b4252", "#3b4252"],  # background lighter
-    ["#bf616a", "#bf616a"],  # red
-    ["#a3be8c", "#a3be8c"],  # green
-    ["#ebcb8b", "#ebcb8b"],  # yellow
-    ["#81a1c1", "#81a1c1"],  # blue
-    ["#b48ead", "#b48ead"],  # magenta
-    ["#88c0d0", "#88c0d0"],  # cyan
-    ["#e5e9f0", "#e5e9f0"],  # white
-    ["#4c566a", "#4c566a"],  # grey
-    ["#d08770", "#d08770"],  # orange
-    ["#8fbcbb", "#8fbcbb"],  # super cyan
-    ["#5e81ac", "#5e81ac"],  # super blue
-    ["#242831", "#242831"],  # super dark background
-]
+
+with open("/home/sophos/.cache/wal/colors") as f:
+   colors = f.readlines() 
+for i in range(len(colors)):
+    colors[i] = colors[i].strip('\n')
 
 group_names = [
    ("", {}),
    ("", {}),
-   ("", {}),
    ("", {}),
    ("", {}),
-   ("6", {}),
+   ("", {}),
+   ("", {}),
 ]
-group_box_settings = {
-    "padding": 5,
-    "borderwidth": 4,
-    "active": colors[9],
-    "inactive": colors[10],
-    "disable_drag": True,
-    "rounded": True,
-    "highlight_color": colors[2],
-    "block_highlight_text_color": colors[6],
-    "highlight_method": "block",
-    "this_current_screen_border": colors[14],
-    "this_screen_border": colors[7],
-    "other_current_screen_border": colors[14],
-    "other_screen_border": colors[14],
-    "foreground": colors[1],
-    "background": colors[14],
-    "urgent_border": colors[3],
-}
+
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 for i, (name, kwargs) in enumerate(group_names, 1):
@@ -93,15 +71,20 @@ for i, (name, kwargs) in enumerate(group_names, 1):
         Key([mod, "shift"], str(i), lazy.window.togroup(name))
     )
 
+layout_theme = {"border_width": 3,
+                "margin": 5,
+                "border_focus": colors[6],
+                "border_normal": colors[8] 
+                }
+
 layouts = [
-    layout.Columns(border_focus_stack='#d75f5f'),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall()
-    # layout.MonadWide(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme)
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -110,10 +93,10 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='FiraCode Nerd Font',
-    fontsize=12,
+    font='Ubuntu Mono Nerd Font',
+    fontsize=14,
     padding=3,
-    background='#151515'
+    background=colors[0]
 
 )
 extension_defaults = widget_defaults.copy()
@@ -122,13 +105,31 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
+
+
+                widget.GroupBox(
+                font = "source code pro",
+                fontsize = 13,
+                borderwidth = 3,
+                active = colors[7],
+                inactive = colors[5],
+                rounded = False,
+                # highlight_color = colors[1],
+                highlight_method = "line",
+                this_current_screen_border = colors[-1],
+                # other_current_screen_border = colors[6],
+                # other_screen_border = colors[4],
+                # foreground = colors[2],
+                ),
+
+
                 widget.CurrentLayout(),
                 widget.WindowName(),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
-            24,
+            22,
+            opacity=0.7,
         ),
     ),
 ]
@@ -152,6 +153,8 @@ cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
+    Match(wm_class='flameshot'),  # flameshot
+    Match(wm_class='Devtools'),  # flameshot
     Match(wm_class='confirmreset'),  # gitk
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
