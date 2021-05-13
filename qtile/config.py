@@ -32,13 +32,13 @@ keys = [
 
     Key([mod], "f", lazy.spawn("firefox"), desc='firefox'),
     Key([mod], "d", lazy.spawn("discord"), desc='discord'),
-    Key([mod], "e", lazy.spawn("thunar"), desc='thunar'),
+    Key([mod], "e", lazy.spawn("pcmanfm"), desc='thunar'),
     Key([mod], "s", lazy.spawn("subl"), desc='sublime text 3'),
     Key([mod], "v", lazy.spawn("vscodium"), desc='vscodium'),
 
-    Key([], "KP_Home", lazy.spawn("playerctl play-pause")),
-    Key([], "KP_Page_Up", lazy.spawn("playerctl next")),
-    Key([], "KP_Page_Down", lazy.spawn("playerctl previous")),
+    Key([], "F7", lazy.spawn("playerctl previous")),
+    Key([], "F8", lazy.spawn("playerctl play-pause")),
+    Key([], "F9", lazy.spawn("playerctl next")),
 
     # Key(["mod1"], "Tab", lazy.layout.down())
 
@@ -51,7 +51,7 @@ for i in range(len(colors)):
 
 group_names = [
    ("", {}),
-   ("", {}),
+   ("", {}),
    ("", {}),
    ("", {}),
    ("", {}),
@@ -108,8 +108,8 @@ screens = [
 
 
                 widget.GroupBox(
-                font = "source code pro",
-                fontsize = 13,
+                font = "firacode nerd font bold",
+                fontsize = 21,
                 borderwidth = 3,
                 active = colors[7],
                 inactive = colors[5],
