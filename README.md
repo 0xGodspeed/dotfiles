@@ -1,4 +1,7 @@
-# dotfiles
+# dotfiles  
+
+## OUTDATED: I don't use these anymore
+See: https://github.com/godspeedfw/dotfiles2
 
 #### Dependencies
 1. dunst
